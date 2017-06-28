@@ -1,0 +1,45 @@
+{
+  "name": "ddd-node-ftw",
+  "version": "0.1.0",
+  "description": "Supporting repository for the talk on DDD implementation feedback with Node",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "eventstore": "^1.12.3",
+    "lightstream-node-utils": "^2.1.0",
+    "lodash": "^4.17.4",
+    "node-uuid": "^1.4.8",
+    "redis": "^2.7.1",
+    "restify": "^4.3.0",
+    "rx": "^4.1.0",
+    "tcomb": "^3.2.21"
+  },
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2",
+    "supervisor": "^0.12.0"
+  },
+  "scripts": {
+    "test": "mocha test/ --recursive --reporter landing",
+    "test:watch": "npm run test -- -w",
+    "start": "node app/server.js",
+    "start:watch": "supervisor -w app/ app/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rehia/ddd-node-ftw.git"
+  },
+  "keywords": [
+    "ddd",
+    "node",
+    "example"
+  ],
+  "author": "Jérôme Avoustin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rehia/ddd-node-ftw/issues"
+  },
+  "homepage": "https://github.com/rehia/ddd-node-ftw#readme"
+}

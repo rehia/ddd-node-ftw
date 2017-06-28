@@ -1,0 +1,10 @@
+{
+  "eventstore": {
+    "type": "redis",
+    "prefix": "tracker",
+    "maxSnapshotsCount": 10
+  },
+  "redis": {
+    "db": {}
+  }
+}
