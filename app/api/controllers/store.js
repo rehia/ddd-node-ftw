@@ -1,7 +1,7 @@
 'use strict';
 
 const {wrapCommand} = require('./actionWrapper');
-const {commands:{CreateOrder}} = require('../../store/domain/types');
+const {commands:{CreateOrder, ValidateOrder}} = require('../../store/domain/types');
 
 const storeController = (commands) => {
   const createOrder =
@@ -10,8 +10,15 @@ const storeController = (commands) => {
         await commands.createOrder(CreateOrder(params))
     );
 
+  const validateOrder =
+    wrapCommand(
+      async({params}) =>
+        await commands.validateOrder(ValidateOrder(params))
+    );
+
   return {
-    createOrder
+    createOrder,
+    validateOrder
   };
 };
 

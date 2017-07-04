@@ -13,9 +13,13 @@ const Event = t.struct({
 
 const Events = t.list(Event);
 
-const CommandResult = t.struct({
+const CommandResult = t.interface({
   events: Events,
   error: Error
+});
+
+const CommandWithId = t.interface({
+  id: t.String
 });
 
 module.exports = {
@@ -23,5 +27,6 @@ module.exports = {
   PositiveFloat,
   Event,
   Events,
-  CommandResult
+  CommandResult,
+  CommandWithId
 };

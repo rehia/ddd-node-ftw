@@ -18,7 +18,8 @@ const runServer = async () => {
     return next();
   });
 
-  server.post('/order', api.actions.store.createOrder);
+  server.post('/order', api.actions.store.controller.createOrder);
+  server.put('/order/:id/validate', api.actions.store.controller.validateOrder);
 
   server.listen(3000);
   console.log('Listening on port 3000...');
