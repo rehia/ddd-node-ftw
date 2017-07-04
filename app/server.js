@@ -19,7 +19,8 @@ const runServer = async () => {
   });
 
   server.post('/order', api.actions.store.controller.createOrder);
-  server.put('/order/:id/validate', api.actions.store.controller.validateOrder);
+  server.put('/order/:id/validate', api.actions.sagas.controller.validateOrder);
+  // server.put('/order/:id/validate', api.actions.store.controller.validateOrder);
 
   server.put('/inventory/:id/fill', api.actions.inventory.controller.fillProductInventory);
   server.put('/inventory/:id/withdraw', api.actions.inventory.controller.withdrawProductInventory);
