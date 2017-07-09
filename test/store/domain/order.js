@@ -68,17 +68,19 @@ describe('order aggregate behavior', () => {
   describe('create order', () => {
     it('should create order', () => {
       const command = {
+        id: 'd45f328e',
         user: 'john.doe',
         products
       };
 
-      const result = orderAggregate.create(command);
+      const {events, error} = orderAggregate.create(command);
 
-      expect(result.events).to.have.a.lengthOf(1);
-      expect(result.events[0].type).to.equal(eventTypes.ORDER_CREATED);
-      expect(result.events[0].payload.user).to.equal('john.doe');
-      expect(result.events[0].payload.products).to.have.a.lengthOf(2);
-      expect(result.error).to.not.exist;
+      expect(events).to.have.a.lengthOf(1);
+      expect(events[0].type).to.equal(eventTypes.ORDER_CREATED);
+      expect(events[0].id).to.equal('d45f328e');
+      expect(events[0].payload.user).to.equal('john.doe');
+      expect(events[0].payload.products).to.have.a.lengthOf(2);
+      expect(error).to.not.exist;
     });
   });
 
@@ -93,11 +95,12 @@ describe('order aggregate behavior', () => {
 
       const command = {id:'d45f328e'};
 
-      const result = orderAggregate.validate(state, command);
+      const {events, error} = orderAggregate.validate(state, command);
 
-      expect(result.events).to.have.a.lengthOf(1);
-      expect(result.events[0].type).to.equal(eventTypes.ORDER_VALIDATED);
-      expect(result.error).to.not.exist;
+      expect(events).to.have.a.lengthOf(1);
+      expect(events[0].type).to.equal(eventTypes.ORDER_VALIDATED);
+      expect(events[0].id).to.equal('d45f328e');
+      expect(error).to.not.exist;
     });
 
     it('should not validate order when already canceled', () => {
@@ -110,10 +113,10 @@ describe('order aggregate behavior', () => {
 
       const command = {id:'d45f328e'};
 
-      const result = orderAggregate.validate(state, command);
+      const {events, error} = orderAggregate.validate(state, command);
 
-      expect(result.events).to.be.empty;
-      expect(result.error).to.be.an.instanceOf(DomainError);
+      expect(events).to.be.empty;
+      expect(error).to.be.an.instanceOf(DomainError);
     });
 
     it('should not validate order when already validated', () => {
@@ -126,10 +129,10 @@ describe('order aggregate behavior', () => {
 
       const command = {id:'d45f328e'};
 
-      const result = orderAggregate.validate(state, command);
+      const {events, error} = orderAggregate.validate(state, command);
 
-      expect(result.events).to.be.empty;
-      expect(result.error).to.be.an.instanceOf(DomainError);
+      expect(events).to.be.empty;
+      expect(error).to.be.an.instanceOf(DomainError);
     });
   });
 });

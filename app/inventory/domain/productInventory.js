@@ -16,6 +16,7 @@ const aggregateType = 'ProductInventory';
 const fill = (state, command) => ({
   events: [{
     type: PRODUCT_INVENTORY_FILLED,
+    id: command.id,
     payload: pick(FillProductInventory(command), 'quantity')
   }]
 });
@@ -23,12 +24,14 @@ const fill = (state, command) => ({
 const withdraw = (state, command) => {
   const events = [{
     type: PRODUCT_INVENTORY_WITHDRAWN,
+    id: command.id,
     payload: pick(WithdrawProductInventory(command), 'quantity')
   }];
 
   if (state.remainingQuantity <= command.quantity) {
     events.push({
-      type: PRODUCT_INVENTORY_DEPLETED
+      type: PRODUCT_INVENTORY_DEPLETED,
+      id: command.id,
     });
   }
   return {events};

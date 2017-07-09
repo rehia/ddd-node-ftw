@@ -4,11 +4,12 @@ const {aggregateType, create} = require('../domain/order');
 
 const commandBuilder = ({saveEvents}, generateId) =>
   async (command) => {
-    const result = create(command);
+    const id = generateId();
+    const result = create(Object.assign({id}, command));
 
     await saveEvents(
       aggregateType,
-      generateId(),
+      id,
       result
     );
   };

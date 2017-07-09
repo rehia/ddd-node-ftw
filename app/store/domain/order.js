@@ -11,11 +11,12 @@ const aggregateType = 'Order';
 const create = (command) => ({
   events: [{
     type: ORDER_CREATED,
+    id: command.id,
     payload: CreateOrder(command)
   }]
 });
 
-const validate = (state) => {
+const validate = (state, command) => {
   if (state.status !== 'created') {
     return {
       events: [],
@@ -24,7 +25,8 @@ const validate = (state) => {
   }
   return {
     events: [{
-      type: ORDER_VALIDATED
+      type: ORDER_VALIDATED,
+      id: command.id,
     }]
   };
 };
