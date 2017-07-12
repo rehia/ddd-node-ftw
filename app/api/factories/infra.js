@@ -6,6 +6,7 @@ const eventstore = require('eventstore');
 const repositoryFactory = require('../../infra/repository/redis');
 const eventBusFactory = require('../../infra/eventbus/redis');
 const enableEventBusLogger = require('../../infra/eventbus/eventbusLogger');
+const purchaseDao = require('../../infra/dao/inMemory/purchaseDao');
 
 function connectToRedis(config) {
   return new Promise((fulfill, reject) => {
@@ -53,12 +54,17 @@ async function buildInfra(config) {
   // eventstore must be initialized once event bus has been created
   await initEventstore(eventstoreClient);
 
+  const daos = {
+    purchaseDao: purchaseDao()
+  };
+
   return {
     repository,
     eventstoreClient,
     eventBus,
     redisDbClient,
-    redisEventSubscriberClient
+    redisEventSubscriberClient,
+    daos
   };
 }
 
